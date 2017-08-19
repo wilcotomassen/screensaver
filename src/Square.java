@@ -11,7 +11,7 @@ import processing.core.PVector;
 
 public class Square {
 	
-	public static final int SIZE = 80;
+	public static final int SIZE = Main.applet.height / 6;
 	private static final int HALF_SIZE = SIZE / 2;
 	
 	private Pattern pattern;

@@ -7,12 +7,17 @@ import processing.core.PVector;
 public class Main extends PApplet {
 	
 	private ArrayList<Square> squares = new ArrayList<>();
+	public static PApplet applet;
 	
 	public void settings() {
 		size(1280, 960);
+		fullScreen();
 	}
 	
 	public void setup() {
+		
+		this.applet = this;
+		
 		frameRate(30);
 		
 		// Init Ani library

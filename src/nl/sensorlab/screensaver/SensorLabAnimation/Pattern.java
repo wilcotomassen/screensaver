@@ -1,3 +1,4 @@
+package nl.sensorlab.screensaver.SensorLabAnimation;
 
 
 public enum Pattern {

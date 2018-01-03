@@ -1,3 +1,4 @@
+package nl.sensorlab.screensaver.SensorLabAnimation;
 import java.util.Random;
 
 import com.cleverfranke.util.PColor;
@@ -11,7 +12,7 @@ import processing.core.PVector;
 
 public class Square {
 	
-	public static final int SIZE = Main.applet.height / 6;
+	public static final int SIZE = 180;
 	private static final int HALF_SIZE = SIZE / 2;
 	
 	private Pattern pattern;
@@ -32,8 +33,8 @@ public class Square {
 		// Setup transition sequence
 		inOutTransition = new AniSequence(applet);
 		inOutTransition.beginSequence();
-		inOutTransition.add(Ani.to(this, .5f, "transitionProgress", 1f, Ani.LINEAR)); // Fade in
-		inOutTransition.add(Ani.to(this, .5f, t, "transitionProgress", 0f, Ani.LINEAR, "onEnd:change")); // Fade out
+		inOutTransition.add(Ani.to(this, .5f, "transitionProgress", 1f, Ani.CUBIC_OUT)); // Fade in
+		inOutTransition.add(Ani.to(this, .5f, t, "transitionProgress", 0f, Ani.CUBIC_IN, "onEnd:change")); // Fade out
 		inOutTransition.endSequence();
 		
 		// Randomize (and start transition)
@@ -76,12 +77,15 @@ public class Square {
 			case LINES: {
 				g.noFill();
 				g.stroke(colorF);
-				g.strokeWeight(SIZE / 9);
+				g.strokeWeight(SIZE / 10);
 				g.strokeCap(PConstants.SQUARE);
 				
-				g.line(-HALF_SIZE, -HALF_SIZE * .5f, -HALF_SIZE + transitionProgress * SIZE, -HALF_SIZE * .5f);
+				g.line(-HALF_SIZE, 
+						-HALF_SIZE * .4f, 
+						-HALF_SIZE + transitionProgress * SIZE, 
+						-HALF_SIZE * .4f);
 				g.line(HALF_SIZE, 0, HALF_SIZE - transitionProgress * SIZE, 0);
-				g.line(-HALF_SIZE, HALF_SIZE * .5f, -HALF_SIZE + transitionProgress * SIZE, HALF_SIZE * .5f);
+				g.line(-HALF_SIZE, HALF_SIZE * .4f, -HALF_SIZE + transitionProgress * SIZE, HALF_SIZE * .4f);
 				
 			} break;
 			default:
@@ -111,8 +115,8 @@ public class Square {
 	
 	public void change() {
 		pattern = randomPattern();
-//		rotation = randomRotation();
-//		blackOnWhite = randomColorStyle();
+		rotation = randomRotation();
+		blackOnWhite = randomColorStyle();
 		
 		// Start transition
 		inOutTransition.start();

@@ -12,11 +12,12 @@ public class Main extends PApplet {
 	public void settings() {
 		size(1280, 960);
 		fullScreen();
+		
 	}
 	
 	public void setup() {
-		
-		this.applet = this;
+		noCursor();
+		Main.applet = this;
 		
 		frameRate(30);
 		
@@ -41,6 +42,10 @@ public class Main extends PApplet {
 			s.draw(g);
 		}
 		
+	}
+	
+	public void keyPressed() {
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {

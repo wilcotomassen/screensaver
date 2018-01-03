@@ -1,64 +1,53 @@
 package nl.sensorlab.screensaver;
 
+import java.util.ArrayList;
+
 import de.looksgood.ani.Ani;
-import nl.sensorlab.screensaver.SensorLabAnimation.SensorLabAnimation;
+import nl.sensorlab.screensaver.SensorLabAnimation.Square;
 import processing.core.PApplet;
-import processing.event.KeyEvent;
+import processing.core.PVector;
 
 public class Main extends PApplet {
 	
-	private FileHandler fileHandler;
-	private DisplayRenderer currentRenderer;
-	private SensorLabAnimation animation;
-	private ImageViewer imageViewer;
+	private ArrayList<Square> squares = new ArrayList<>();
+	public static PApplet applet;
 	
 	public void settings() {
 		size(1280, 960);
-//		fullScreen();
+		fullScreen();
 	}
 	
 	public void setup() {
 		
-		frameRate(60);
+		Main.applet = this;
+		
+		frameRate(30);
 		
 		// Init Ani library
 		Ani.init(this);
 		Ani.noAutostart();
 		Ani.setDefaultTimeMode("SECONDS");
 		
-		fileHandler = new FileHandler("C:\\tmp");
-		
-		// Create renderers
-		animation = new SensorLabAnimation(this);
-		imageViewer = new ImageViewer(this);
-		
-		currentRenderer = animation;
-		
-	}
-	
-	@Override
-	public void keyReleased(KeyEvent event) {
-		switch (event.getKeyCode()) {
-			case 37: // Left
-				
-				break;
-			case 39: // Right
-				
-				break;
+		// Create squares
+		for (int y = 0; y < height; y += Square.SIZE) {
+			for (int x = 0; x < width; x += Square.SIZE) {
+				squares.add(new Square(new PVector(x + Square.SIZE / 2, y + Square.SIZE / 2), this));
+			}
 		}
+		
 	}
 	
 	public void draw() {
-		currentRenderer.draw(g);
+		background(0);
 		
-		
-		if (frameCount % 120 == 0) {
-			fileHandler.pollForChanges();
+		for (Square s: squares) {
+			s.draw(g);
 		}
 		
 	}
 
 	public static void main(String[] args) {
+		// Program execution starts here
 		PApplet.main(Main.class.getName());
 	}
 
